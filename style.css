@@ -1,0 +1,138 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #f9f7f4;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8vw;
+}
+
+.art {
+  position: relative;
+  font-family: monospace;
+  font-size: clamp(5px, 1vw, 13px);
+  line-height: 1.25;
+  cursor: default;
+  user-select: none;
+}
+
+.art-pink {
+  color: #c7809b;
+}
+.art-green {
+  color: #8bb5ad;
+}
+.art-gold {
+  color: #ddc088;
+}
+
+.char {
+  display: inline-block;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* suppress transitions while mouse is moving */
+.art.moving .char {
+  transition: none;
+}
+
+.label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1.8em;
+  text-align: center;
+  font-family: monospace;
+  font-size: clamp(7px, 0.9vw, 12px);
+  letter-spacing: 0.2em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.art:hover .label {
+  opacity: 0.7;
+}
+
+.float {
+  position: fixed;
+  font-family: monospace;
+  font-size: clamp(7px, 0.9vw, 12px);
+  letter-spacing: 0.2em;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.f1 {
+  top: 14%;
+  right: 6%;
+  color: #c7809b;
+}
+
+.f2 {
+  bottom: 22%;
+  left: 5%;
+  color: #8bb5ad;
+}
+
+.f3 {
+  bottom: 10%;
+  right: 8%;
+  color: #ddc088;
+}
+
+.f4 {
+  top: 38%;
+  left: 3.5%;
+  color: #c7809b;
+}
+
+#art2 {
+  transform: translateY(-12vh);
+}
+#art3 {
+  transform: translateY(16vh);
+}
+
+.site-header {
+  position: fixed;
+  top: clamp(12px, 2vw, 24px);
+  left: clamp(16px, 2.5vw, 32px);
+  font-family: monospace;
+  font-size: clamp(16px, 0.85vw, 20px);
+  letter-spacing: 0.15em;
+  color: #c7c2bb;
+  pointer-events: none;
+}
+
+.site-footer {
+  position: fixed;
+  bottom: clamp(12px, 2vw, 24px);
+  right: clamp(16px, 2.5vw, 32px);
+  font-family: monospace;
+  font-size: clamp(12px, 0.75vw, 16px);
+  letter-spacing: 0.15em;
+  color: #c7c2bb;
+  pointer-events: none;
+  opacity: 0.6;
+}

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ascii</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <span class="site-header">dots on a page...</span>
+
+    <footer class="site-footer">...built by reiley</footer>
+
+    <span class="float f1">some nights you are the lighthouse</span>
+    <span class="float f2">some nights the sea</span>
+    <span class="float f3">what this means is that i don't know</span>
+    <span class="float f4">desire other than the need</span>
+
+    <div class="canvas">
+      <div class="art art-pink" id="art1">
+        <div class="label">to be shattered</div>
+      </div>
+      <div class="art art-green" id="art2">
+        <div class="label">and rebuilt</div>
+      </div>
+      <div class="art art-gold" id="art3">
+        <div class="label">ocean vuong</div>
+      </div>
+    </div>
+
+    <script>
+      const ARTS = {
+        art1: [
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠶⢞⣟⣯⠶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢖⡛⠥⠒⠋⠉⠀⠈⢻⡫⣧⠀⠀⠀⠀⠀⠀⠀⢄⠀⠀⠀⢠⢄⠀⠀⠀⠇⠀⢀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣥⠋⠀⢠⢾⠿⠿⢿⢳⡀⢳⡽⣇⠀⠀⠀⠀⠀⢀⠈⠢⡄⠀⠼⠏⢧⡀⡼⢀⡔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡧⠇⠀⣏⡧⡴⢳⡄⣾⡇⠀⢣⡺⡆⠀⠀⠀⠀⠀⠈⠲⢌⠃⡟⠀⠪⠳⠥⡥⣤⣤⡦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣼⡀⠈⠙⠓⣋⡰⢙⡇⠀⠀⡧⢻⡄⠀⠀⢠⡶⣦⠶⠒⠘⣡⣦⣴⠢⡌⠁⡡⠔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢯⣜⣶⣯⠵⠖⠒⠋⠀⣠⠔⣩⡞⠃⠀⠀⠀⠉⠓⠦⣄⠐⢧⡘⠬⠟⣹⠆⡇⢀⠀⠐⠒⠂⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⢛⣸⠼⠃⠀⠀⠀⠀⠤⠤⠤⢘⡘⡇⠀⠻⣤⠿⠃⠀⠘⢇⠛⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠒⠁⡰⢀⣀⡤⠚⡖⠦⣤⣠⢊⡧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡯⠟⠉⠀⢡⠘⡀⠀⠉⠉⠛⠝⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡐⠳⡠⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠑⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡇⠀⠄⠊⡱⢄⠀⠀⠀⢠⠀⢠⠁⠀⠀⠀⠀⠀⢀⡀⢤⠀⡄⡀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⡀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠣⠀⠀⠀⠀⠊⠱⣄⠀⡼⠀⡈⠀⢀⣀⣴⠲⢉⠉⠀⠐⠀⡈⡇⠀⠀⠀⠀⢀⡠⢶⣚⠭⠚⠋⣁⡠⡶⢤⣄⣀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢰⣶⣄⠀⠀⣟⢷⡇⣠⣦⠚⠍⠂⠀⣤⣴⣶⢿⡄⠀⣈⠅⠀⠀⠀⠀⢹⡅⡏⠀⠀⡴⡫⠑⣩⣬⣑⡚⠼⡛⢶",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣄⠀⣿⣿⣽⣷⣄⡟⠙⠁⠛⠁⠀⣠⣴⣿⢿⠻⣧⡿⠀⠨⡝⠀⠀⠀⠀⠀⢸⠆⡇⠀⢼⢏⠀⢞⡕⢒⠺⡏⡧⠘⢸",
+          "⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⡄⠀⠀⢻⡯⠖⣏⠻⠷⣄⣀⣠⣴⠿⣟⠩⢦⠪⣞⡿⠁⠀⢰⠁⠀⠀⠀⠀⠀⢸⡇⡇⠀⠘⡊⡌⠶⣍⠽⠁⡇⡇⠈⣸",
+          "⠀⠀⠀⠀⠄⡀⠈⠀⠠⣀⠁⣷⣆⡀⢸⣿⣿⢷⣄⠜⠆⣉⠁⣴⣷⣿⠎⡄⣂⣿⠃⠀⠈⡞⠀⠀⠀⠀⠀⠀⠨⡇⢁⠀⠀⠱⡝⠠⠤⣤⣰⣼⠁⠧⡇",
+          "⠀⠀⠀⠀⠀⠀⠈⠐⠠⣀⡝⠧⣤⠁⢺⣿⣹⡾⠋⠷⣼⢤⠟⠒⢛⡾⡡⣵⣿⢃⣀⣤⣼⠤⠐⠀⠂⠀⠀⠀⠀⠸⣬⣓⠤⡄⣨⣛⣛⣉⢁⣀⠜⣸⠁",
+          "⠀⠀⠀⠀⢀⣠⢴⡲⠉⠀⠉⠳⢈⣠⣿⠓⠈⣇⠀⠀⠀⠀⠀⠀⣰⡇⡼⣽⠃⣋⣉⣭⡇⠠⠠⠄⠀⠀⠀⠀⠀⠀⠀⠉⠉⠙⠛⠲⠷⠾⠭⠶⠚⠁⠀",
+          "⠀⢀⣤⡶⠓⠉⠀⣀⣤⣶⣶⢿⡟⡯⣀⣣⣶⠏⠀⠀⠀⠀⠀⠀⢾⣅⠶⣿⣦⣭⣭⠼⠷⡄⠤⠤⠤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⡜⡛⡂⡀⠀⠀⠘⢿⣿⡷⣟⣯⣋⢖⡿⠽⠏⠶⡆⠀⠀⣠⣤⣀⣀⣚⣳⣜⢋⡿⣦⣀⠀⠊⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠉⠛⠶⠴⣠⣀⠀⠀⠀⠉⠉⢛⠻⠿⢶⣛⡎⡩⢿⣐⣾⠓⣡⢀⣬⡩⣩⣙⠄⢊⡽⣻⢶⡀⠁⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠉⠂⠊⢧⣦⡞⢋⣤⠄⠀⢿⣮⠵⡘⢿⡟⣵⣺⣿⠟⠓⣿⠾⣟⣾⣾⣽⣳⣟⣦⠈⡚⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠂⠀⠀⢠⠛⡇⢰⡄⠈⣷⣯⢱⠘⣮⣯⡟⠁⢸⣧⢹⣶⠀⠀⠉⠛⢻⣯⣽⣿⠈⠊⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠔⠁⠀⢸⡟⠁⠀⠹⣿⣹⣲⣿⡿⠁⠹⣦⠿⡍⠙⠗⠒⠦⣤⢀⡀⢉⠉⠀⠀⡓⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠜⠁⢡⠂⠀⠀⣿⣷⣿⡯⠀⠠⣠⡟⡄⠙⡀⠈⠂⠀⠀⠈⠉⠒⠢⠬⠴⠤⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠔⠁⠀⠀⠀⢳⡀⠀⠘⢿⡟⠁⠀⣸⠏⠀⠀⡀⠑⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣏⠀⠀⠀⠀⢀⣰⠏⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡄⠀⠀⠀⢢⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠳⣆⡆⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+        ],
+        art2: [
+          "⠀⠀⠀⠀ ⠀⠀⠀⣀⠤⠔⠒⠒⡄⢀⣠⠤⠤⠦⡄⠀",
+          "⠀⠀⠀⠀⠀⢀⡴⠋⠀⠀⠀⣀⠴⠊⣡⣴⣾⡿⣣⠃⠀⠀",
+          "⠀⠀⠀⠀⢰⠋⠀⠀⠀⡤⠊⠁⣠⣾⡿⠟⣉⠴⠁⠀⠀⠀",
+          "⠀⠀⠀⡠⠓⠀⠀⠀⠘⠁⢒⣿⠍⠓⠒⠉⠀⠀⠀⠀⠀⠀",
+          "⠀⢠⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⣄⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⡏⠀⠀⠀⠀⠴⠂⠀⠀⠀⠀⠀⠘⢦⠀⠀⠀⠀⠀⠀⠀",
+          "⢸⠘⠉⠀⠀⠀⣴⣶⢶⢀⠤⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀",
+          "⠀⢷⣿⣵⣴⡆⢙⠉⡘⠟⠉⠁⠀⢀⡼⠁⠀⠀⠀⠀⠀⠀",
+          "⢀⣾⡉⠣⠵⠶⠎⠉⠀⠀⠀⡠⠖⠛⠉⠉⠉⠙⢦⡀⠀⠀",
+          "⠀⠊⠑⠂⠀⠤⣄⠀⠀⠀⠀⠀⠀⢀⣠⠄⠒⠀⠘⠁⠀⠀",
+          "⣴⣒⠤⢤⡠⠔⡏⠀⠀⣀⠀⠀⠀⠀⠈⠙⠒⠢⢴⠑⢢⠀",
+          "⠷⡀⠁⠀⠀⠈⡏⠑⠊⠉⠀⠀⠀⠀⠀⠀⠀⠀⠈⡇⢠⠁",
+          "⠀⠈⠉⠉⠉⠉⠱⡀⠀⠀⠀⠀⠰⠀⠀⠀⠀⠀⠀⡏⠁⠀",
+          "⠀⠀⠀⠀⠀⠀⢸⠉⠒⠤⠤⢤⡇⠀⠀⠀⠀⢀⢼⣇⠀⠀",
+          "⠀⠀⠀⠀⠀⢠⠶⠿⠤⠤⠔⠛⡞⠦⣄⡠⡤⢊⣾⠟⠀⠀",
+          "⠀⠀⠀⠀⠀⢱⣤⣤⣤⠠⢶⡿⠀⠀⠀⠙⠶⠽⠟⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+        ],
+        art3: [
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⢀⣣⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⠎⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣾⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⡠⣦⣠⣄⣠⡬⣿⣠⣀⣀⣄⢀⠀⠀⠀⠀⠀",
+          "⠁⠀⠈⠉⠉⠐⡟⠉⠉⡏⢳⣿⠟⠋⠉⡗⠐⠉⠀⠀⠀⠈",
+          "⠀⠀⠀⠀⠈⠚⠁⠀⠈⠀⢺⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣱⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣧⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⢿⣿⠉⠂⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⢿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢾⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+          "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+        ],
+      };
+
+      function buildArt(el, lines) {
+        const label = el.querySelector(".label");
+        const chars = [];
+        lines.forEach((line, i) => {
+          if (i > 0) el.insertBefore(document.createElement("br"), label);
+          for (const ch of line) {
+            const span = document.createElement("span");
+            span.className = "char";
+            span.textContent = ch;
+            el.insertBefore(span, label);
+            chars.push(span);
+          }
+        });
+        return chars;
+      }
+
+      function cachePositions(el, chars) {
+        const rect = el.getBoundingClientRect();
+        return chars.map((span) => {
+          const sr = span.getBoundingClientRect();
+          return {
+            x: sr.left + sr.width / 2 - rect.left,
+            y: sr.top + sr.height / 2 - rect.top,
+          };
+        });
+      }
+
+      function setupHover(el, chars) {
+        let positions = cachePositions(el, chars);
+        let raf = null;
+        const R = 55,
+          R2 = R * R,
+          FORCE = 16;
+
+        window.addEventListener("resize", () => {
+          positions = cachePositions(el, chars);
+        });
+
+        el.addEventListener("mouseenter", () => el.classList.add("moving"));
+
+        el.addEventListener("mousemove", (e) => {
+          if (raf) cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(() => {
+            const rect = el.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+
+            for (let i = 0; i < chars.length; i++) {
+              const dx = positions[i].x - mx;
+              const dy = positions[i].y - my;
+              const dist2 = dx * dx + dy * dy;
+
+              if (dist2 < R2 && dist2 > 0) {
+                const dist = Math.sqrt(dist2);
+                chars[i].style.transform =
+                  `translate(${(dx / dist) * FORCE * (1 - dist / R)}px, ${(dy / dist) * FORCE * (1 - dist / R)}px)`;
+              } else if (chars[i].style.transform !== "") {
+                chars[i].style.transform = "";
+              }
+            }
+          });
+        });
+
+        el.addEventListener("mouseleave", () => {
+          if (raf) cancelAnimationFrame(raf);
+          el.classList.remove("moving");
+          requestAnimationFrame(() => {
+            for (let i = 0; i < chars.length; i++)
+              chars[i].style.transform = "";
+          });
+        });
+      }
+
+      for (const [id, lines] of Object.entries(ARTS)) {
+        const el = document.getElementById(id);
+        if (el) setupHover(el, buildArt(el, lines));
+      }
+    </script>
+  </body>
+</html>
